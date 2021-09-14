@@ -1,0 +1,132 @@
+---
+title: "vfrench3_PeerCommentary_aer13_01"
+author: "VIctoria French"
+date: "9/14/2021"
+output: html_document
+---
+
+V- So I deleted all of the R tutorial chunks just because you don't want them printed to your final html. 
+
+# CHALLENGE 1
+## ASSIGNMENT: First, create a vector of 1, word character strings comprising the first line of the novel Ulysses, by James Joyce: “Stately, plump Buck Mulligan came from the stairhead, bearing a bowl of lather on which a mirror and a razor lay crossed.” Then, extract every third element of this vector.
+
+V: The above text could be placed outside of the chunk as its not referencing any specific code. Its just introducing the assignment. Also I adjusted the hashtags so they were layered where Challenge is a primary heading and the assignment is a subheading. 
+
+```{r}
+v1 <- c("Stately,", "plump", "Buck", "Mulligan", "came", "from", "the", "stairhead,", "bearing", "a", "bowl", "of", "lather", "on", "which", "a", "mirror", "and", "a", "razor", "lay", "crossed.")
+v1
+matrix(data = v1, ncol = 1) # V: I don't fully understand why this is here? it doesn't seem like its doing anything? you can sequence the vector without first making it a matrix. 
+v1[seq(from = 1, to = 22, by = 3)] #create a sequence of every third element in the vector "v1"
+```
+
+# CHALLENGE 2 
+
+```{r}
+#Given the matrix, m, above, extract the 2nd, 3rd, and 6th columns and assign them to the variable x
+m <- matrix(data = 1:80, nrow = 8, ncol = 10, byrow = FALSE)
+x <- m[, c(2,3,6) ]
+x
+#Given the matrix, m, above, extract the 6th to 8th row and assign them to the variable x
+x2 <- m[c(6, 8), ] #V: so this is only extracting the 6th and 8th rows not the 6th TO 8th rows. I would use either a vector including 7 or a colon operator to make a sequence 
+# V: x2 <- m[c(6,7,8),]
+# V: x2 <- m[6:8, ]
+x2
+#Given the matrix, m, above, extract the elements from row 2, column 2 to row 6, column 9 and assign them to the variable x
+x3 <- m[2:6, 2:9]
+x3
+```
+# CHALLENGE 3
+```{r}
+#Construct a 4-dimensional, 400 element array (5 x 5 x 4 x 4) named a consisting of the numbers 400 to 1 (i.e., a descending series)
+a <- array(data = 400:1, dim = c(5, 5, 4, 4))
+a
+
+#Given this matrix, what would the following return?
+
+a[1, 1, 1, 2] #300
+
+a[2, 3, 2, ] #364, 264, 164, 64
+
+a[1:5, 1:5, 3, 3] #     [,1] [,2] [,3] [,4] [,5]
+                  #     [1,]  150  145  140  135  130
+                  #     [2,]  149  144  139  134  129
+                  #     [3,]  148  143  138  133  128
+                  #     [4,]  147  142  137  132  127
+                  #     [5,]  146  141  136  131  126
+```
+V: This is alot of code to put in a single chunk. I would break it up for easier annotation and a less crowded output. In Markdown I don't think its necessary to hash the outputs as the output will print after the code is run. 
+
+# CHALLENGE 4
+```{R}
+#Create a list representing this (simplified) primate taxonomy:
+Lemuroidea <- c("Cheirogaleidae", "Lepilemuridae", "Indriidae", "Lemuridae",
+    "Daubentoniidae")
+Lorisoidea <- c("Lorisidae", "Galagidae")
+Strepsirhini <- list(Lemuroidea, Lorisoidea)
+names(Strepsirhini) <- list("Lemuroidea", "Lorisoidea")
+Strepsirhini
+
+Platyrrhini <- c("Cebidae", "Atelidae", "Pitheciidae")
+Catarrhini <- c("Cercopithecidae", "Hylobatidae", "Hominidae") 
+
+Anthropoidea <- list(Platyrrhini,  Catarrhini)
+names(Anthropoidea) <- list("Platyrrhini", "Catarrhini")
+Anthropoidea
+
+Tarsioidea <- c("Tarsiidae")
+
+Haplorhini <- list(Anthropoidea, Tarsioidea)
+names(Haplorhini) <- list("Anthropoidea", "Tarsioidea")
+Haplorhini
+
+Primates <- list(Haplorhini, Strepsirhini)
+names(Primates) <- list("Haplorhini", "Strepsirhini")
+
+Primates
+```
+
+V: this is a huge chunk of code without any annotation and lists can sometimes be confusing so I would go through and step by step explain why you are putting in each line of code if you want it to be a useful reference tool. 
+
+Also here is a little bit of code I included at the end to include the primate classification in the final output because right now all you have is a list object named primates but the Primate level of classification is nowhere in the output (hopefully that makes sense sorry)
+
+taxonomy<- list(primates)
+taxonomy
+
+#CHALLENGE 5
+```{r}
+#Store the following numbers as a 5 x 3 matrix, called “m3”: 3, 0, 1 ,23, 1, 2, 33, 1, 1, 42, 0, 1, 41, 0, 2. Be sure to fill the matrix ROW-WISE.
+
+m3 <- matrix(data = c(3, 0, 1 ,23, 1, 2, 33, 1, 1, 42, 0, 1, 41, 0, 2), nrow = 5, ncol = 3, byrow = TRUE)
+m3
+
+#Coerce the matrix to a data frame.
+m3.df <- as.data.frame(m3)
+m3.df
+#As a data frame, coerce the second column to be logical-valued
+m3_sec_col <- m3.df$V2 #V: I think when the question is asking for coercion it means while still in the data frame. I don't think you necessarily need to make it a separate object first? But honestly I'm unsure. 
+m3_sec_col
+m3_sec_col_log <- as.numeric(m3_sec_col) #V: question is asking for logical not numeric values. 
+
+#V: m3_sec_col_log<- as.logical(m3_sec_col)
+
+m3_sec_col_log
+is.numeric(m3_sec_col_log)
+
+#As a data frame, coerce the third column to be factor-valued
+m3_third_col_fac <- as.factor(m3.df$V3)
+is.factor(m3_third_col_fac) #Problem: is there a way for this change to register in the main m3.df dataframe without adding a new column? 
+m3_third_col_fac
+#V: yeah like I said before I think its because you are assigning it to a new variable so you aren't actually changing it within the data frame. If you want to do that first and then substitute it back into the original m3.df you could do
+  #m3.df$V3 <- m3_third_col_fac
+m3.df
+#When you are done, use the str() command to show the data type for each variable in your dataframe.
+m3.df <- cbind(m3.df, m3_third_col_fac = c("1", "2", "1", "1", "2")) #V: Why are you re-assigning a character vector to the m3_third_col_fac object when you just factored it? 
+m3.df
+str(m3.df) #V: because you reassigned the character vector to the m3_third_col_fac here you can see that its not classified as a factor anymore but a character.  
+```
+
+
+# Overall Notes: 
+- I think you are putting alot of code into single chunks which can get confusing because a lot of different outputs are printing for long strings of code and it becomes difficult to match the line of code to the output it creates. 
+- I would add a section with your biggest challenges for the final assignment!
+- You were missing some general comments (Comments that will help you when you look back at the code like desired outputs of code, function descriptions, etc.). It was hard to follow your train of thought. 
