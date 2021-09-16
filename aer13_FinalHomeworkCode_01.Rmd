@@ -1,0 +1,182 @@
+---
+title: "aer13_FinalHomeworkCode_01"
+author: "Abby_Robinson"
+date: "9/16/2021"
+output: html_document
+---
+# CHALLENGE 1
+
+1. install and run all necessary packages 
+```{r}
+library("stringr") #install and load stringr package so I can use str_split function to separate vector string into individual words 
+```
+
+2. create sentence as a vector  
+```{r}
+v1 <- "Stately, plump Buck Mulligan came from the stairhead, bearing a bowl of lather on which a mirror and a razor lay crossed."
+v1
+```
+
+3. split vector into individual words using "str_split function 
+```{r}
+?str_split
+v2 <- str_split(v1, " ", simplify = TRUE) #the quotations around a space indicate that the vector should separate words that are separated by a space
+```
+
+4. extract every third element using "seq" function 
+```{r}
+v2[seq(from = 1, to = length(v2), by = 3)] #create a sequence of every third element in the vector "v2"
+```
+
+# CHALLENGE 2 
+
+1. generate matrix, m. 
+```{r}
+m <- matrix(data = 1:80, nrow = 8, ncol = 10, byrow = FALSE) #create matrix with elements 1 through 80 in ascending order with 8 rows and 10 columns. byrow = FALSE means numerical order will increase by column. 
+```
+
+2. extract the 2nd, 3rd, and 6th columns from matrix, m, and assign them to variable x
+```{r}
+x <- m[ , c(2,3,6) ] #space left of the comma indicates no specified row extraction (so all rows will be included in subsetted matrix), space right of the comma indicates rows 2,3,6 will be extracted 
+x
+```
+3. extract rows 6 to 8 from matrix, m
+```{r}
+x2 <- m[c(6:8), ] #space left of the comma indicate that rows 6 through 8 will be subsetted,empty space right of the comma indicates that all  columns will be included in subsetted matrix 
+x2
+```
+
+4. extract the elements from row 2, column 2 to row 6, column 9 and assign them to the variable x
+```{r}
+x3 <- m[2:6, 2:9] #rows included in subset are specified left of the comma, columns included in subset are specified right of the comma 
+x3
+```
+# CHALLENGE 3
+
+1. Construct a 4-dimensional, 400 element array (5 x 5 x 4 x 4) named "a" consisting of the numbers 400 to 1 (i.e., a descending series)
+```{r}
+a <- array(data = 400:1, dim = c(5, 5, 4, 4)) #400:1 operator indicates that matrix will contain only numbers between 400 and 1, and the sequence will start at 400 and descend to 1. dim indicates that each matrix will contain 5 rows and 5 columns, and there will be an array of 4 rows of matrices by 4 columns of matrices - resulting in 16 mactrices 
+a
+```
+
+2. Given this matrix, what would the following return?
+
+```{r}
+a[1, 1, 1, 2] 
+```
+
+```{r}
+a[2, 3, 2, ]
+```
+
+```{r}
+a[1:5, 1:5, 3, 3]
+```
+
+# CHALLENGE 4
+**Create a list representing the (simplified) primate taxonomy**
+
+1. load code provided in module 4
+```{R}
+Lemuroidea <- c("Cheirogaleidae", "Lepilemuridae", "Indriidae", "Lemuridae",
+    "Daubentoniidae")
+Lorisoidea <- c("Lorisidae", "Galagidae") 
+
+Strepsirhini <- list(Lemuroidea, Lorisoidea)
+names(Strepsirhini) <- list("Lemuroidea", "Lorisoidea")
+Strepsirhini
+```
+
+2. begin by grouping the lowest orders of taxonomic classification, and then combine into larger groups 
+
+```{r}
+Platyrrhini <- c("Cebidae", "Atelidae", "Pitheciidae") 
+Catarrhini <- c("Cercopithecidae", "Hylobatidae", "Hominidae") 
+```
+
+3. group "platyrrhini" and "catarrhini" into anthropoidea
+```{r}
+Anthropoidea <- list(Platyrrhini,  Catarrhini)
+```
+
+4. R does not name each list with the taxonomic name assigned in step 2, so we have to do that now 
+
+```{r}
+names(Anthropoidea) <- list("Platyrrhini", "Catarrhini")
+Anthropoidea
+```
+
+5. before grouping Anthropoidea and tarsioidea under haplorhini, I have to assign the lowest level of classification under tarsioidae just like I did for Platyrrhini and Catarrhini in step 2
+
+```{r}
+Tarsioidea <- c("Tarsiidae")
+```
+
+6. now I can group anthropoidae and tarsioidea together under haplorhini, and name each level of the list with the correct taxonomic name using the function names(), as seen in step 4
+```{r}
+Haplorhini <- list(Anthropoidea, Tarsioidea)
+names(Haplorhini) <- list("Anthropoidea", "Tarsioidea")
+Haplorhini
+```
+
+7. next, list and name the two broadest categories "haplorhini" and 
+"strepsirhini" under "primates"
+
+```{r}
+Primates <- list(Haplorhini, Strepsirhini)
+names(Primates) <- list("Haplorhini", "Strepsirhini")
+Primates
+```
+for clarity, I can also list "Primates" under "Taxonomy" so "Primates appears in the list output 
+
+```{r}
+Taxonomy<- list(Primates)
+names(Taxonomy) <- ("Primates")
+Taxonomy
+
+```
+
+#CHALLENGE 5
+
+1. Store the following numbers as a 5 x 3 matrix, called “m3”: 3, 0, 1 ,23, 1, 2, 33, 1, 1, 42, 0, 1, 41, 0, 2. Be sure to fill the matrix ROW-WISE.
+
+```{r}
+m3 <- matrix(data = c(3, 0, 1 ,23, 1, 2, 33, 1, 1, 42, 0, 1, 41, 0, 2), nrow = 5, ncol = 3, byrow = TRUE) #c() function enters the listed numbers in the data matrix. nrow command sets the number of rows in the matrix as 5, and ncol command sets the number of columns as 3. byrow = TRUE means that numbers in the matrix will increase by row, not by column. 
+m3
+```
+
+2. Coerce the matrix to a data frame.
+```{r}
+m3.df <- as.data.frame(m3) #as.data.frame function coerces matrix into a data frame, and is.data.frame function can be used to verify that the matrix has been successfully coericed. 
+m3.df
+
+is.data.frame(m3.df)
+```
+
+3. As a data frame, coerce the second column to be logical-valued
+```{r}
+m3.df[,2] <- as.logical(m3.df[,2]) #as.logical function coerces data frame into logical values, [,2] is needed to specify column 2 in the data,and create this change in the speficied column of the original data set 
+m3.df
+is.logical(m3.df[,2])
+```
+
+4. As a data frame, coerce the third column to be factor-valued
+
+```{r}
+m3.df[,3] <- as.factor(m3.df[,3])
+m3.df
+is.factor(m3.df[,3]) #use "is.factor" function to confirm coercion 
+```
+
+5. When you are done, use the str() command to show the data type for each variable in your dataframe.
+
+```{r}  
+str(m3.df) #str function shows the internal structure of an R project, and it allows you so see that V1 is still numeric, V2 is now logical, and V3 is now a factor vector 
+```
+#Challenges 
+
+1. For challenge 5, I originally tried to subset columns before coercing them into logical or factor valued, but subsetting these columns did not process the change in the original matrix so I had problems when looking at the internal structures of the project at the end using str(). I ended up using [,2] to specify the column and make these changes within the data frame 
+
+2. using str_split function was confusing at first because I didn't understand that you had to specify how you were separating the vector string by putting a space between quotation marks " "  If I have written "and" into my code, it would have separated the sentence by where the word "and" is used. 
+
+3. I feel like after the peer review process I have a better understanding of how to use R Markdown and how to organize and clarify code 
